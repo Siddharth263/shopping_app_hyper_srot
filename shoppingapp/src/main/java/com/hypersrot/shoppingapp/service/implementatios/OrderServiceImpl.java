@@ -1,15 +1,8 @@
 package com.hypersrot.shoppingapp.service.implementatios;
 
-import com.hypersrot.shoppingapp.modals.Coupon;
-import com.hypersrot.shoppingapp.modals.Order;
-import com.hypersrot.shoppingapp.modals.Product;
-import com.hypersrot.shoppingapp.modals.User;
-import com.hypersrot.shoppingapp.repository.CouponRepo;
-import com.hypersrot.shoppingapp.repository.OrderRepo;
-import com.hypersrot.shoppingapp.repository.ProductRepo;
-import com.hypersrot.shoppingapp.repository.UserRepo;
+import com.hypersrot.shoppingapp.modals.*;
+import com.hypersrot.shoppingapp.repository.*;
 import com.hypersrot.shoppingapp.service.OrderService;
-import com.hypersrot.shoppingapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +15,15 @@ public class OrderServiceImpl implements OrderService {
     private final ProductRepo productRepo;
     private final UserRepo userRepo;
     private final CouponRepo couponRepo;
+    private final PaymentRepository paymentRepository;
 
     @Autowired
-    public OrderServiceImpl(OrderRepo orderRepo, UserRepo userRepo, CouponRepo couponRepo, ProductRepo productRepo) {
+    public OrderServiceImpl(OrderRepo orderRepo, UserRepo userRepo, CouponRepo couponRepo, ProductRepo productRepo, PaymentRepository paymentRepository) {
         this.orderRepo = orderRepo;
         this.userRepo = userRepo;
         this.couponRepo = couponRepo;
         this.productRepo = productRepo;
+        this.paymentRepository = paymentRepository;
     }
 
     @Override
@@ -45,13 +40,15 @@ public class OrderServiceImpl implements OrderService {
         if (user.hasAppliedCoupon(coupon))
             throw new Exception("Coupon has already been applied by the user with id: " + userId + ", coupon used: " + couponCode);
 
-        Order order = new Order();
+        Double amount = product.getPrice() - (coupon.getDiscount() * 1000)/100;
 
+        Order order = new Order();
         order.setProduct(product);
         order.setUser(user);
         order.setQuantity(quantity);
         order.setCoupon(coupon);
         order.setCouponApplied(true);
+        order.setAmount(amount);
 
         orderRepo.save(order);
 
@@ -59,8 +56,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public String makePayment(Integer userId, Integer orderId, Integer amount) throws Exception {
-        Integer finalAmount;
+    public String makePayment(Integer userId, Integer orderId, Double amount) throws Exception {
+
         Optional<Order> orderCheck = orderRepo.findById(orderId);
 
         Order order = orderCheck.orElseThrow(() -> new Exception("Incorrect order id"));
@@ -68,12 +65,19 @@ public class OrderServiceImpl implements OrderService {
         Optional<User> userCheck = userRepo.findById(userId);
         User user = userCheck.orElseThrow(() -> new Exception("Invalid UserId"));
 
-        if(order.getCouponApplied()) {
-            Integer dis = order.getCoupon().getDiscount();
-            finalAmount = amount - (dis * amount)/100;
-        } else finalAmount = amount;
+        Payment payment = new Payment();
+        payment.setOrder(order);
+        payment.setUser(user);
 
+        if(!Objects.equals(amount, order.getAmount())) throw new Exception("Amount value is incorrect please enter correct value.");
 
+        payment.setDescription("Amount has been paid for the order with id " + orderId + ".");
 
+        order.setIs_paid(true);
+        orderRepo.save(order);
+
+        paymentRepository.save(payment);
+
+        return payment.getDescription();
     }
 }
