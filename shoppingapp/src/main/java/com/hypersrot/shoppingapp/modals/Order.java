@@ -15,6 +15,7 @@ public class Order {
     private Integer id;
     private Integer quantity;
     private Boolean couponApplied;
+    private Integer amount;
 
 
     @ManyToOne
