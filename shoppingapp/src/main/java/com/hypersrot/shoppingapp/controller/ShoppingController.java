@@ -77,7 +77,11 @@ public class ShoppingController {
     }
 
     @PostMapping("/{userId}/{orderId}/pay")
+<<<<<<< HEAD
     public ResponseEntity<String> makePayment(@PathVariable Integer userId, @PathVariable Integer orderId, @RequestParam("amount") Double amount) {
+=======
+    public ResponseEntity<String> makePayment(@PathVariable Integer userId, @PathVariable Integer orderId, @RequestParam("amount") Integer amount) {
+>>>>>>> 58a629aba6cce99d2583d13359768c7b3bb7d53f
         try {
             return ResponseEntity.ok(orderService.makePayment(userId, orderId, amount));
         } catch (Exception e) {

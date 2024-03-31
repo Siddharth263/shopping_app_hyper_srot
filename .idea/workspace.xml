@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67166c68-fcc0-491f-addb-1f4b8e193b9a" name="Changes" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/config/ProductConfig.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/exceptions/CouponException.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/exceptions/ErrorDetails.java" afterDir="false" />
@@ -18,6 +19,14 @@
       <change beforePath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/customAnnotation/CustomIdGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/customAnnotation/CustomIdGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/modals/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/modals/Order.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/service/OrderService.java" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/customAnnotation/CustomIdGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/repository/PaymentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/controller/ShoppingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/controller/ShoppingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/modals/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/modals/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/modals/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/modals/Payment.java" afterDir="false" />
+>>>>>>> 58a629aba6cce99d2583d13359768c7b3bb7d53f
       <change beforePath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/service/implementatios/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/shoppingapp/src/main/java/com/hypersrot/shoppingapp/service/implementatios/OrderServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +37,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>

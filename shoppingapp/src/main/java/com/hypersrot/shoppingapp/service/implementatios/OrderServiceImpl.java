@@ -40,7 +40,11 @@ public class OrderServiceImpl implements OrderService {
         if (user.hasAppliedCoupon(coupon))
             throw new Exception("Coupon has already been applied by the user with id: " + userId + ", coupon used: " + couponCode);
 
+<<<<<<< HEAD
         Double amount = product.getPrice() - (coupon.getDiscount() * 1000)/100;
+=======
+        Integer amount = 1000 - (coupon.getDiscount() * 1000)/100;
+>>>>>>> 58a629aba6cce99d2583d13359768c7b3bb7d53f
 
         Order order = new Order();
         order.setProduct(product);
@@ -73,9 +77,12 @@ public class OrderServiceImpl implements OrderService {
 
         payment.setDescription("Amount has been paid for the order with id " + orderId + ".");
 
+<<<<<<< HEAD
         order.setIs_paid(true);
         orderRepo.save(order);
 
+=======
+>>>>>>> 58a629aba6cce99d2583d13359768c7b3bb7d53f
         paymentRepository.save(payment);
 
         return payment.getDescription();
