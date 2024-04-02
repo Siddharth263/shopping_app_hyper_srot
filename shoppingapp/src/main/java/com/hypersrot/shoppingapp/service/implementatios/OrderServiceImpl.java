@@ -1,5 +1,6 @@
 package com.hypersrot.shoppingapp.service.implementatios;
 
+import com.hypersrot.shoppingapp.exceptions.*;
 import com.hypersrot.shoppingapp.modals.*;
 import com.hypersrot.shoppingapp.repository.*;
 import com.hypersrot.shoppingapp.service.OrderService;
@@ -27,24 +28,22 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public String placeOrder(Integer userId, Integer quantity, String couponCode) throws Exception {
+    public String placeOrder(Integer userId, Integer quantity, String couponCode) throws ProductException, UserException, CouponException {
         Optional<Product> productCheck = productRepo.findById(1);
-        Product product = productCheck.orElseThrow(() -> new Exception("Product not found"));
+        Product product = productCheck.orElseThrow(() -> new ProductException("Product not found"));
 
-        if (quantity > product.getQuantity()) throw new Exception("Not enough quantity present");
+        if (quantity > product.getQuantity()) throw new ProductException("Not enough quantity present");
 
         Optional<User> userCheck = userRepo.findById(userId);
-        User user = userCheck.orElseThrow(() -> new Exception("Invalid UserId"));
+        User user = userCheck.orElseThrow(() -> new UserException("Invalid UserId"));
 
-        Coupon coupon = couponRepo.findByCode(couponCode);
+        Optional<Coupon> c = couponRepo.findByCode(couponCode);
+        Coupon coupon = c.orElseThrow(() -> new CouponException("Invalid Coupon Code"));
         if (user.hasAppliedCoupon(coupon))
-            throw new Exception("Coupon has already been applied by the user with id: " + userId + ", coupon used: " + couponCode);
+            throw new CouponException("Coupon has already been applied by the user with id: " + userId + ", coupon used: " + couponCode);
 
-<<<<<<< HEAD
-        Double amount = product.getPrice() - (coupon.getDiscount() * 1000)/100;
-=======
-        Integer amount = 1000 - (coupon.getDiscount() * 1000)/100;
->>>>>>> 58a629aba6cce99d2583d13359768c7b3bb7d53f
+
+        Double amount = product.getPrice() - (coupon.getDiscount() * 1000) / 100;
 
         Order order = new Order();
         order.setProduct(product);
@@ -60,29 +59,27 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public String makePayment(Integer userId, Integer orderId, Double amount) throws Exception {
+    public String makePayment(Integer userId, Integer orderId, Double amount) throws OrderException, UserException, PaymentException {
 
         Optional<Order> orderCheck = orderRepo.findById(orderId);
 
-        Order order = orderCheck.orElseThrow(() -> new Exception("Incorrect order id"));
+        Order order = orderCheck.orElseThrow(() -> new OrderException("Incorrect order id"));
 
         Optional<User> userCheck = userRepo.findById(userId);
-        User user = userCheck.orElseThrow(() -> new Exception("Invalid UserId"));
+        User user = userCheck.orElseThrow(() -> new UserException("Invalid UserId"));
 
         Payment payment = new Payment();
         payment.setOrder(order);
         payment.setUser(user);
 
-        if(!Objects.equals(amount, order.getAmount())) throw new Exception("Amount value is incorrect please enter correct value.");
+        if (!Objects.equals(amount, order.getAmount()))
+            throw new PaymentException("Amount value is incorrect please enter correct value.");
 
         payment.setDescription("Amount has been paid for the order with id " + orderId + ".");
 
-<<<<<<< HEAD
         order.setIs_paid(true);
         orderRepo.save(order);
 
-=======
->>>>>>> 58a629aba6cce99d2583d13359768c7b3bb7d53f
         paymentRepository.save(payment);
 
         return payment.getDescription();

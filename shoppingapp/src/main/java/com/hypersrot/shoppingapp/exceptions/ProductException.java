@@ -2,7 +2,7 @@ package com.hypersrot.shoppingapp.exceptions;
 
 
 
-public class ProductException extends Exception{
+public class ProductException extends RuntimeException{
     public ProductException() {
     }
 

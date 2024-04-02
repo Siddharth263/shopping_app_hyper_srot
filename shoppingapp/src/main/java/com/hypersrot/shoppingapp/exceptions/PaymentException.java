@@ -2,7 +2,7 @@ package com.hypersrot.shoppingapp.exceptions;
 
 
 
-public class PaymentException extends Exception{
+public class PaymentException extends RuntimeException{
     public PaymentException() {
     }
 

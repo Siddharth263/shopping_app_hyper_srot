@@ -46,9 +46,9 @@ public class ShoppingController {
     }
 
     @GetMapping("/{userId}/orders/{ordersId}")
-    public ResponseEntity<Order> getOrderOfUser(@PathVariable Integer userId, @PathVariable Integer orderId) {
-        try{
-            Order order = userService.getOrderOfUsers(userId, orderId);
+    public ResponseEntity<Order> getOrderOfUser(@PathVariable Integer userId, @PathVariable Integer ordersId) {
+        try {
+            Order order = userService.getOrderOfUsers(userId, ordersId);
             return ResponseEntity.ok(order);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -56,7 +56,7 @@ public class ShoppingController {
     }
 
     @GetMapping("/{userId}/orders")
-    public ResponseEntity<Set<Order> > getAllOrders(@PathVariable Integer userId) {
+    public ResponseEntity<Set<Order>> getAllOrders(@PathVariable Integer userId) {
         try {
             Set<Order> list = userService.getAllOrders(userId);
             return ResponseEntity.ok(list);
@@ -66,8 +66,8 @@ public class ShoppingController {
     }
 
     @PostMapping("/{userId}/orders")
-    public ResponseEntity<String> placeOrder(@PathVariable Integer userId, @RequestParam("qty") int quantity,
-                                                  @RequestParam("coupon") String coupon) {
+    public ResponseEntity<String> placeOrder(@PathVariable Integer userId, @RequestParam("qty") Integer quantity,
+                                             @RequestParam("coupon") String coupon) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(orderService.placeOrder(userId, quantity, coupon));
         } catch (Exception e) {
@@ -77,11 +77,8 @@ public class ShoppingController {
     }
 
     @PostMapping("/{userId}/{orderId}/pay")
-<<<<<<< HEAD
     public ResponseEntity<String> makePayment(@PathVariable Integer userId, @PathVariable Integer orderId, @RequestParam("amount") Double amount) {
-=======
-    public ResponseEntity<String> makePayment(@PathVariable Integer userId, @PathVariable Integer orderId, @RequestParam("amount") Integer amount) {
->>>>>>> 58a629aba6cce99d2583d13359768c7b3bb7d53f
+
         try {
             return ResponseEntity.ok(orderService.makePayment(userId, orderId, amount));
         } catch (Exception e) {

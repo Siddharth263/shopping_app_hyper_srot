@@ -4,10 +4,6 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
 import java.io.Serializable;
-<<<<<<< HEAD
-=======
-import java.util.Random;
->>>>>>> 58a629aba6cce99d2583d13359768c7b3bb7d53f
 import java.util.concurrent.atomic.AtomicLong;
 
 public class CustomIdGenerator implements IdentifierGenerator {
